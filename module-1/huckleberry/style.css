@@ -47,10 +47,9 @@ h1.title {
   margin-bottom: 48px;
 }
 
-.intro-chunk,
 .card,
 h2.indented-heading {
-  border-bottom: 8px solid hsl(0deg, 0%, 60%);
+  border-bottom: 8px solid hsl(0deg, 0%, 80%);
 }
 
 .intro-chunk > *,
@@ -59,8 +58,9 @@ h2.indented-heading {
 }
 
 main {
-  background: hsl(0deg, 0%, 40%);
-  padding-block: 48px;
+  background: hsl(0deg, 0%, 60%);
+  border-top: 8px outset hsl(0deg, 0%, 80%);
+  padding-block: 72px;
 }
 main > section {
   background: white;
@@ -76,7 +76,8 @@ main > section {
 h2.indented-heading {
   background: hsl(45deg, 100%, 50%);
   border-color: hsl(45deg, 100%, 40%);
-  padding-block: 12px;
+  margin-top: 8px;
+  padding: 12px 32px;
   width: 374px; /* 398px */
   margin-top: 0;
   margin-bottom: 30px;
