@@ -8,6 +8,7 @@
 
 .header {
   padding-bottom: 64px;
+  max-width: 65%;
 }
 
 .title {
@@ -24,7 +25,17 @@
 }
 
 .characterWrapper {
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: calc(100% - 65%); /* Calculate remaining space using header's width */
+  padding-top: 128px; /* characterEditor padding */
+}
+
+.characterWrapper svg {
+  min-height: 500px;
 }
 
 .controlColumn {
+  max-width: 50%;
 }
