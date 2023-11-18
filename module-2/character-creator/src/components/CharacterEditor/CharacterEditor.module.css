@@ -4,6 +4,8 @@
 }
 
 .maxWidthWrapper {
+  /* Enable stacking context to appear infront of .decorationBar */
+  isolation: isolate;
 }
 
 .header {
@@ -30,6 +32,17 @@
   top: 0;
   width: calc(100% - 65%); /* Calculate remaining space using header's width */
   padding-top: 128px; /* characterEditor padding */
+}
+
+.decorationBar {
+  content: '';
+  background: hsl(195deg, 20%, 86%);
+  width: 100%;
+  position: fixed;
+  top: 40%;
+  right: 0;
+  bottom: 0;
+  left: 0;
 }
 
 .characterWrapper svg {
