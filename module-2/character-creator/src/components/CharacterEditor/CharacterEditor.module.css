@@ -39,3 +39,8 @@
 .controlColumn {
   max-width: 50%;
 }
+
+.controlColumn > * {
+  overflow-x: scroll;
+  white-space: nowrap;
+}
