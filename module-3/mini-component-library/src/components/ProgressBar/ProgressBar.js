@@ -7,49 +7,57 @@ import VisuallyHidden from '../VisuallyHidden';
 
 const SIZES = {
   small: {
-    '--height': '8px',
-    '--borderRadius': '4px',
+    height: 8,
+    padding: 0,
+    radius: 4,
   },
   medium: {
-    '--height': '12px',
-    '--borderRadius': '4px',
+    height: 12,
+    padding: 0,
+    radius: 4,
   },
   large: {
-    '--height': '24px',
-    '--borderRadius': '8px',
-    '--barPadding': '4px',
+    height: 24,
+    padding: 4,
+    radius: 8,
   }
 }
 
 const ProgressBar = ({ value, size }) => {
   const styles = SIZES[size];
 
+  if (!styles) {
+    throw new Error(`Unknown size passed to ProgressBar: ${size}`);
+  }
+
   return (
-    <Progress 
-      style={styles} 
+    <Wrapper 
+      style={{
+        '--height': styles.height + 'px',
+        '--padding': styles.padding + 'px',
+        '--radius': styles.radius + 'px',
+      }} 
       role="progressbar"
       aria-valuenow={value}
       aria-valuemin="0"
       aria-valuemax="100"
     >
       <Bar
-        style={styles}
         value={value}
-        isCompleteSoon={value >= 99 }
+        isNearFull={value >= 99}
         role="presentation"
       >
-        <VisuallyHidden>Progress at {value}%</VisuallyHidden>
+        <VisuallyHidden>{value}%</VisuallyHidden>
       </Bar>
-    </Progress>
+    </Wrapper>
   );
 };
 
-const Progress = styled.div`
-  padding: var(--barPadding);
-  border-radius: var(--borderRadius);
-  display: block;
-  width: 370px;
+const Wrapper = styled.div`
   height: var(--height);
+  padding: var(--padding);
+  border-radius: var(--radius);
+  width: 370px;
   background: ${COLORS.transparentGray15};
   box-shadow: inset 0px 2px 4px ${COLORS.transparentGray35};
 `
@@ -60,7 +68,7 @@ const Bar = styled.span`
   height: 100%;
   background: ${COLORS.primary};
   border-radius: 4px 0 0 4px;
-  border-radius: ${p => p.isCompleteSoon && '4px' };
+  border-radius: ${p => p.isNearFull && '4px'};
 `
 
 export default ProgressBar;
