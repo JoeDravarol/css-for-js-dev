@@ -27,26 +27,27 @@ const Header = () => {
 };
 
 const MainHeader = styled.div`
-  padding: 0 32px;
+  padding: 18px 32px;
   border-bottom: 1px solid ${COLORS.gray[300]};
   height: 72px;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: baseline;
 
   & > :nth-child(1) {
-    margin-right: 200px;
+    flex: 1;
   }
 
   &::after {
     content: '';
-    width: 370px;
+    flex: 1;
   }
 `;
 
 const Nav = styled.nav`
   display: flex;
   gap: 48px;
+  margin-inline: 48px;
 `;
 
 const NavLink = styled.a`
