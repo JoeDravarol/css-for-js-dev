@@ -21,7 +21,7 @@ const Wrapper = styled.div`
 
   & > * {
     min-width: 340px;
-    width: 30%;
+    flex: 1;
   }
 `;
 
