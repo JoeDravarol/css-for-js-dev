@@ -60,11 +60,7 @@ const MainColumn = styled.div`
 const Header = styled.header`
   display: flex;
   justify-content: space-between;
-
-  & > * {
-    display: flex;
-    align-items: center;
-  }
+  align-items: baseline;
 `;
 
 const Title = styled.h2`
