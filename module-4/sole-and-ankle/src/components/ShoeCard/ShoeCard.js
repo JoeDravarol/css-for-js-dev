@@ -30,21 +30,26 @@ const ShoeCard = ({
     : isNewShoe(releaseDate)
       ? 'new-release'
       : 'default'
+  const isOnSale = variant === 'on-sale';
+  const isNewRelease = variant === 'new-release';
 
   return (
     <Link href={`/shoe/${slug}`}>
-      <Wrapper>
+      <Wrapper variant={variant}>
         <ImageWrapper>
           <Image alt="" src={imageSrc} />
         </ImageWrapper>
         <Spacer size={12} />
         <Row>
           <Name>{name}</Name>
-          <Price>{formatPrice(price)}</Price>
+          <Price isOnSale={isOnSale}>{formatPrice(price)}</Price>
         </Row>
         <Row>
           <ColorInfo>{pluralize('Color', numOfColors)}</ColorInfo>
+          {isOnSale && <SalePrice>{formatPrice(salePrice)}</SalePrice>}
         </Row>
+        {isNewRelease && <NewReleaseFlag>Just released</NewReleaseFlag>}
+        {isOnSale && <OnSaleFlag>Sale</OnSaleFlag>}
       </Wrapper>
     </Link>
   );
@@ -55,7 +60,9 @@ const Link = styled.a`
   color: inherit;
 `;
 
-const Wrapper = styled.article``;
+const Wrapper = styled.article`
+  position: relative;
+`;
 
 const ImageWrapper = styled.div`
   position: relative;
@@ -63,10 +70,14 @@ const ImageWrapper = styled.div`
 
 const Image = styled.img`
   width: 100%;
+  border-radius: 16px 16px 4px 4px;
 `;
 
 const Row = styled.div`
   font-size: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
 `;
 
 const Name = styled.h3`
@@ -74,7 +85,10 @@ const Name = styled.h3`
   color: ${COLORS.gray[900]};
 `;
 
-const Price = styled.span``;
+const Price = styled.span`
+  text-decoration: ${p => p.isOnSale && 'line-through'};
+  color: ${p => p.isOnSale && COLORS.gray[700]};
+`;
 
 const ColorInfo = styled.p`
   color: ${COLORS.gray[700]};
@@ -84,5 +98,30 @@ const SalePrice = styled.span`
   font-weight: ${WEIGHTS.medium};
   color: ${COLORS.primary};
 `;
+
+const Flag = styled.span`
+  position: absolute;
+  top: 12px;
+  right: -4px;
+  width: fit-content;
+  padding: 7px 9px 9px 10px;
+  border-radius: 2px;
+  text-transform: capitalize;
+  color: ${COLORS.white};
+  font-size: 0.875rem;
+  font-weight: ${WEIGHTS.bold};
+`;
+
+const OnSaleFlag = styled(Flag)`
+  background: ${COLORS.primary}
+`
+
+const NewReleaseFlag = styled(Flag)`
+  background: ${COLORS.secondary};
+
+  &:: after {
+    content: '!';
+  }
+`
 
 export default ShoeCard;
