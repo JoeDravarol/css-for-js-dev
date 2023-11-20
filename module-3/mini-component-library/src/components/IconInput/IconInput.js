@@ -6,98 +6,77 @@ import { COLORS } from '../../constants';
 import Icon from '../Icon';
 import VisuallyHidden from '../VisuallyHidden';
 
-const STYLES = {
-  small: {
-    padding: 4,
-    paddingLeft: 8,
-    iconSize: 12,
-  },
-  large: {
-    padding: 8,
-    paddingLeft: 12,
-    iconSize: 16,
-  }
-};
-
 const IconInput = ({
   label,
   icon,
   width = 250,
   size,
-  placeholder,
+  ...delegated
 }) => {
-  const styles = STYLES[size];
-
-  if (!styles) {
-    throw new Error(`Unknown size passed to ProgressBar: ${size}`);
-  }
+  const iconSize = size === 'small' ? 16 : 24;
+  const Input = size === 'small'
+    ? SmallInput
+    : LargeInput;
 
   return (
     <Wrapper>
-      <IconWrapper
-        style={{
-          '--size': styles.iconSize + 'px'
-        }}
-      >
-        <VisuallyHidden htmlFor="icon">
-          {label}
-        </VisuallyHidden>
-        <Icon 
-          id={icon} 
-          size={styles.iconSize}
-        />
+      <VisuallyHidden>{label}</VisuallyHidden>
+      <IconWrapper style={{ '--size': iconSize + 'px' }}>
+        <Icon id={icon} size={iconSize} />
       </IconWrapper>
-      <NativeInput
+      <Input
+        {...delegated}
         style={{
-          '--padding': styles.padding + 'px',
-          '--paddingLeft': styles.iconSize + styles.paddingLeft + 'px',
           '--width': width + 'px',
         }}
-        placeholder={placeholder}
-        iconSize={styles.iconSize}
       />
     </Wrapper>
   );
 };
 
-const Wrapper = styled.span`
+const Wrapper = styled.label`
+  display: block;
   position: relative;
-`;
-
-const IconWrapper = styled.span`
-  width: var(--size);
-  height: var(--size);
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  margin: auto;
-  pointer-events: none;
-`;
-
-const NativeInput = styled.input`
-  padding: var(--padding);
-  width: var(--width);
-  border: none;
-  border-bottom: 1px solid ${COLORS.black};
-  padding-left: var(--paddingLeft);
-  font-weight: 700;
   color: ${COLORS.gray700};
 
   &:hover {
-    border-width: 2px;
-    color: ${COLORS.black}
+    color: ${COLORS.black};
   }
+`
+
+const IconWrapper = styled.div`
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto 0;
+  height: var(--size);
+`
+
+const TextInput = styled.input`
+  width: var(--width);
+  border: none;
+  color: inherit;
+  font-weight: 700;
+  outline-offset: 2px;
 
   &::placeholder {
-    color: ${COLORS.gray500};
     font-weight: 400;
-    font-size: 0.875rem;
+    color: ${COLORS.gray500};
   }
+`;
 
-  & > svg {
-    color: inherit;
-  }
+const SmallInput = styled(TextInput)`
+  height: 24px;
+  font-size: ${14 / 16}rem;
+  border-bottom: 1px solid ${COLORS.black};
+  padding-left: 24px;
+`;
+
+const LargeInput = styled(TextInput)`
+  height: 36px;
+  font-size: ${18 / 16}rem;
+  border-bottom: 2px solid ${COLORS.black};
+  padding-left: 36px;
 `;
 
 export default IconInput;
