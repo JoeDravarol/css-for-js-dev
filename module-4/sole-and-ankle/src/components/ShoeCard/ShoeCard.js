@@ -38,6 +38,8 @@ const ShoeCard = ({
       <Wrapper variant={variant}>
         <ImageWrapper>
           <Image alt="" src={imageSrc} />
+          {isNewRelease && <NewFlag>Just released</NewFlag>}
+          {isOnSale && <SaleFlag>Sale</SaleFlag>}
         </ImageWrapper>
         <Spacer size={12} />
         <Row>
@@ -48,8 +50,6 @@ const ShoeCard = ({
           <ColorInfo>{pluralize('Color', numOfColors)}</ColorInfo>
           {isOnSale && <SalePrice>{formatPrice(salePrice)}</SalePrice>}
         </Row>
-        {isNewRelease && <NewReleaseFlag>Just released</NewReleaseFlag>}
-        {isOnSale && <OnSaleFlag>Sale</OnSaleFlag>}
       </Wrapper>
     </Link>
   );
@@ -103,8 +103,9 @@ const Flag = styled.span`
   position: absolute;
   top: 12px;
   right: -4px;
-  width: fit-content;
-  padding: 7px 9px 9px 10px;
+  height: 32px;
+  line-height: 32px;
+  padding-inline: 10px;
   border-radius: 2px;
   text-transform: capitalize;
   color: ${COLORS.white};
@@ -112,11 +113,11 @@ const Flag = styled.span`
   font-weight: ${WEIGHTS.bold};
 `;
 
-const OnSaleFlag = styled(Flag)`
+const SaleFlag = styled(Flag)`
   background: ${COLORS.primary}
 `
 
-const NewReleaseFlag = styled(Flag)`
+const NewFlag = styled(Flag)`
   background: ${COLORS.secondary};
 
   &:: after {
