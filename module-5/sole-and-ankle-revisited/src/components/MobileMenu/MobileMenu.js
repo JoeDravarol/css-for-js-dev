@@ -6,7 +6,7 @@ import { DialogOverlay, DialogContent } from '@reach/dialog';
 import UnstyledButton from '../UnstyledButton';
 import Icon from '../Icon';
 import VisuallyHidden from '../VisuallyHidden';
-import { COLORS, WEIGHTS } from '../../constants';
+import { WEIGHTS } from '../../constants';
 
 const MobileMenu = ({ isOpen, onDismiss }) => {
   if (!isOpen) {
@@ -44,7 +44,7 @@ const Overlay = styled(DialogOverlay)`
   right: 0;
   bottom: 0;
   left: 0;
-  background: hsl(0deg 0% 0% / 0.5);
+  background: var(--color-backdrop);
   display: flex;
   justify-content: flex-end;
 `;
@@ -52,7 +52,7 @@ const Overlay = styled(DialogOverlay)`
 const Content = styled(DialogContent)`
   width: 300px;
   height: 100%;
-  background: ${COLORS.white};
+  background: var(--color-white);
   padding: 26px 16px 32px 32px;
   display: flex;
   flex-direction: column;
@@ -73,14 +73,14 @@ const Nav = styled.nav`
 `
 
 const NavLink = styled.a`
-  color: ${COLORS.gray[900]};
+  color: var(--color-gray-900);
   text-decoration: none;
   font-weight: ${WEIGHTS.medium};
   font-size: 1.125rem;
   text-transform: uppercase;
 
   &:first-of-type {
-    color: ${COLORS.secondary}
+    color: var(--color-secondary);
   }
 `
 
@@ -91,11 +91,11 @@ const Footer = styled.footer`
 `
 
 const FooterLink = styled.a`
-  color: ${COLORS.gray[700]};
+  color: var(--color-gray-700);
   text-decoration: none;
 
   &:hover {
-    color: ${COLORS.gray[900]};
+    color: var(--color-gray-900)};
   }
 `
 
